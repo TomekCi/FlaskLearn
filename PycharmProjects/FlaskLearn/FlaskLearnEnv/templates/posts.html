@@ -7,27 +7,32 @@
 
 
 {% block body %}
-<h1>All Posts</h1>
-
-    <hr>
-    <h2>Create New Blog Post:</h2>
-    <from action="/posts" method="POST">
-        Title: <input type="text" name="title" id="title">
-        <br>
-        Post: <input type="text" name="content" id="content">
-        <br>
-        <input type="submit" value="Post">
-    </from>
-    <hr>
-
+<br>
+<div>
+    <h1 style="display:inline">All Posts</h1>
+    <a class="btn btn-success float-right" style="display:inline" href="/posts/new">+ New Post</a>
+</div>
+    <br>
     {% for post in posts %}
+        <br>
         <h2>{{ post.title }}</h2>
         {% if post.author %}
-            <p>{{ post.author }}</p>
+            <small>Written by: {{ post.author }}</small>
+            <small>{{ post.date_posted }}</small>
         {% else %}
-            <p>Author Unknown</p>
+            <small>Author Unknown</small>
+            <small>{{ post.date_posted }}</small>
         {% endif %}
-        <p>{{ post.content }}</p>
+        <br>
+        <br>
+        <p style="white-space:pre-wrap">{{ post.content }}</p>
+
+        <a class="btn btn-danger" href="/posts/delete/{{post.id}}">Delete</a>
+        <a class="btn btn-primary" href="/posts/edit/{{post.id}}">Edit</a>
+        <hr>
+
+        <br>
+        <br>
     {% endfor %}
 
 {% endblock %}
